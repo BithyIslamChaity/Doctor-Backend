@@ -3,19 +3,20 @@ package org.isdb.DoctorBackend.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.naming.AuthenticationException;
+
+import org.isdb.DoctorBackend.config.JwtTokenProvider;
 import org.isdb.DoctorBackend.dto.LoginRequest;
 import org.isdb.DoctorBackend.dto.RegisterRequest;
 import org.isdb.DoctorBackend.dto.UserResponse;
-import org.isdb.email.config.JwtTokenProvider;
-import org.isdb.email.model.CustomUserDetails;
-import org.isdb.email.model.User;
-import org.isdb.email.service.UserService;
+import org.isdb.DoctorBackend.model.CustomUserDetails;
+import org.isdb.DoctorBackend.model.User;
+import org.isdb.DoctorBackend.service.UserService;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;

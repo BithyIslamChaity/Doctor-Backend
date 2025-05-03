@@ -1,7 +1,7 @@
 package org.isdb.DoctorBackend.validator;
 
-import org.isdb.email.annotation.ValidRole;
-import org.isdb.email.constants.Role;
+import org.isdb.DoctorBackend.annotation.ValidRole;
+import org.springframework.context.annotation.Role;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

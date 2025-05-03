@@ -2,7 +2,7 @@ package org.isdb.DoctorBackend.model;
 
 import java.time.LocalDateTime;
 
-import org.isdb.email.constants.Role;
+import javax.management.relation.Role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

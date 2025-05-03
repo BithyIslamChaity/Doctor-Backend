@@ -3,17 +3,16 @@ package org.isdb.DoctorBackend.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.isdb.DoctorBackend.constants.Role;
+import org.isdb.DoctorBackend.model.CustomUserDetails;
+import org.isdb.DoctorBackend.model.User;
 import org.isdb.DoctorBackend.repository.UserRepository;
-import org.isdb.email.constants.Role;
-import org.isdb.email.model.CustomUserDetails;
-import org.isdb.email.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {

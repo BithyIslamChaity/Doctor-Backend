@@ -2,7 +2,7 @@ package org.isdb.DoctorBackend.dto;
 
 import java.time.LocalDateTime;
 
-import org.isdb.email.constants.Role;
+import org.springframework.context.annotation.Role;
 
 import lombok.Getter;
 import lombok.Setter;
