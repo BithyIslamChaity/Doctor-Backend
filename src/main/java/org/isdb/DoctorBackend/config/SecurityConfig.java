@@ -1,8 +1,6 @@
 package org.isdb.DoctorBackend.config;
 
-import java.util.Arrays;
-import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Configuration
@@ -29,53 +28,53 @@ import lombok.extern.slf4j.Slf4j;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-	public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
-		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-	}
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
-			throws Exception {
-		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/public/**")
-								.permitAll().requestMatchers("/api/user/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
+            throws Exception {
+        http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(
+                        auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/public/**")
+                                .permitAll().requestMatchers("/api/user/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
 //						.requestMatchers("/api/manager/**")
 //						.hasAnyRole("MANAGER", "ADMIN")
 
-								.requestMatchers("/api/patient/**").hasAnyRole("PATIENT", "ADMIN")
-								.requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated())
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-				.httpBasic(Customizer.withDefaults())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                                .requestMatchers("/api/patient/**").hasAnyRole("PATIENT", "ADMIN")
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		return http.build();
-	}
+        return http.build();
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-		return authConfig.getAuthenticationManager();
-	}
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Angular origin
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(List.of("*"));
-		configuration.setAllowCredentials(true); // allow Authorization cookie/header etc.
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Angular origin
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true); // allow Authorization cookie/header etc.
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
 
-		return source;
-	}
+        return source;
+    }
 
 }

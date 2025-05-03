@@ -1,15 +1,15 @@
 package org.isdb.DoctorBackend.service;
 
 import jakarta.transaction.Transactional;
-
+import org.isdb.DoctorBackend.model.CustomUserDetails;
+import org.isdb.DoctorBackend.model.User;
 import org.isdb.DoctorBackend.repository.UserRepository;
-import org.isdb.email.model.CustomUserDetails;
-import org.isdb.email.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
