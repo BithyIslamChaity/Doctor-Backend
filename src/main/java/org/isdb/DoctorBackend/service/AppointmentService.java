@@ -58,7 +58,7 @@ public class AppointmentService {
 	// Convert the Appointment entity to AppointmentDTO
 	private AppointmentDTO convertToDTO(Appointment appointment) {
 		AppointmentDTO dto = new AppointmentDTO();
-		dto.setId(appointment.getId());
+
 		dto.setPatientId(appointment.getPatient().getId());
 		dto.setDoctorId(appointment.getDoctor().getId());
 		dto.setScheduledTime(appointment.getScheduledTime());

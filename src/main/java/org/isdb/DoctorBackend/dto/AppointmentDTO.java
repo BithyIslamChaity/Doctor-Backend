@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentDTO {
-	private Long id;
+//	private Long id;
 	private Long patientId;
 	private Long doctorId;
 	private LocalDateTime scheduledTime;

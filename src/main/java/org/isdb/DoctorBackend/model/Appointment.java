@@ -28,11 +28,11 @@ public class Appointment {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "patient_id", nullable = false)
+	@JoinColumn(name = "patient_id", nullable = false, referencedColumnName = "id")
 	private User patient;
 
 	@ManyToOne
-	@JoinColumn(name = "doctor_id", nullable = false)
+	@JoinColumn(name = "doctor_id", nullable = false, referencedColumnName = "id")
 	private User doctor;
 
 	@Column(nullable = false)

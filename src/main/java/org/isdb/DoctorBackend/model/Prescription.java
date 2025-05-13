@@ -1,12 +1,9 @@
 package org.isdb.DoctorBackend.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,29 +12,19 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "t_prescription")
+@Table(name = "T_PRESCRIPTION")
 public class Prescription {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private User doctorId;
+	private User patientId;
+	private String medicineName;
+	private String medicineDosage;
+	private String duration;
 
-	@ManyToOne
-	@JoinColumn(name = "appointment_id", nullable = false)
-	private Appointment appointment;
-
-	@Column(nullable = false)
-	private String description;
-
-	@Column(nullable = false)
-	private String medication;
-
-	@Column(nullable = false)
-	private String dosage;
-
-	@Column(nullable = true)
-	private String notes;
 }
