@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -45,6 +44,9 @@ public class UserController {
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return userService.getUserById(id).map(user -> ResponseEntity.ok(convertToDTO(user)))
                 .orElse(ResponseEntity.notFound().build());
+
+
+
     }
 
     @GetMapping("/role/{role}")
@@ -55,6 +57,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
+
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
         User user = new User(
@@ -64,6 +67,7 @@ public class UserController {
                 userCreateRequest.age(),
                 userCreateRequest.gender(),
                 userCreateRequest.phoneNumber()
+
         );
 
         User createdUser = userService.createUser(user);

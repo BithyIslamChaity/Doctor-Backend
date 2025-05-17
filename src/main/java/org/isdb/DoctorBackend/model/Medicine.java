@@ -17,7 +17,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "t_medicine")
 public class Medicine {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -34,5 +33,4 @@ public class Medicine {
 		this.type = type;
 		this.company = company;
 	}
-
 }
