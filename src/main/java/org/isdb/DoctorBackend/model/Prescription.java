@@ -1,10 +1,6 @@
 package org.isdb.DoctorBackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +14,22 @@ import lombok.Setter;
 @Table(name = "T_PRESCRIPTION")
 public class Prescription {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private User doctorId;
-	private User patientId;
-	private String medicineName;
-	private String medicineDosage;
-	private String duration;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false, referencedColumnName = "id")
+    private User doctorId;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false, referencedColumnName = "id")
+    private User patientId;
+
+    private String medicineName;
+
+    private String medicineDosage;
+
+    private String duration;
 
 }
