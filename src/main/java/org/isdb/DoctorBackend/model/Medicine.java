@@ -20,15 +20,23 @@ public class Medicine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String name;
+
 	private String strength;
+
 	private String generic;
+
 	private String type;
+
 	private String company;
+
 
 	public Medicine(String name, String strength, String generic, String type, String company) {
 		this.name = name;
+		
 		this.strength = strength;
+
 		this.generic = generic;
 		this.type = type;
 		this.company = company;
