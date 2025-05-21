@@ -39,11 +39,13 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
 			throws Exception {
 		http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/public/**")
-								.permitAll().requestMatchers("/api/user/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
-								.requestMatchers("/api/patient/**").hasAnyRole("PATIENT", "ADMIN")
-								.requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
+//				.requestMatchers("/api/**").permitAll()
+						.requestMatchers("/api/public/**").permitAll().requestMatchers("/api/user/**")
+						.hasAnyRole("PATIENT", "DOCTOR", "ADMIN").requestMatchers("/api/patient/**")
+						.hasAnyRole("PATIENT", "ADMIN").requestMatchers("/api/prescriptions/**").hasRole("DOCTOR")
+
+						.requestMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 				.httpBasic(Customizer.withDefaults())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
